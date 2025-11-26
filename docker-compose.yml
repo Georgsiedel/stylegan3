@@ -1,0 +1,61 @@
+services:
+  stylegan-0-1:
+    ipc: host
+    ulimits:
+        memlock: -1
+        stack: 67108864
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${UID:-1000}
+        GROUP_ID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "0,1"
+      NVIDIA_DRIVER_CAPABILITIES: "all"
+    volumes:
+      - ../datasets:/data
+      - ../trained_models:/trained_models
+      - ../stylegan3:/workspace
+    working_dir: /workspace
+    tty: true
+
+    #command: python train.py --outdir=../trained_models/GANs/GTSRB_gan --data=../data/GTSRB_for_gan/GTSRB_for_gan.zip --gpus=8 --cond=1 --cfg=stylegan3-r --batch=32 --gamma=2.0 --snap=25
+# options: 
+# gamma=2.0 for 256px, scale quadratically with resolution
+# --cfg=stylegan3-t or --cfg=stylegan3-r for translation or rotation+translation equivariant models
+# mirror=1 for horizontal flips
+
+  stylegan-2-3:
+    extends:
+      service: stylegan-0-1
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "2,3"  # Restrict
+    #command: python run_exp_1.py  # Run a different script for this container
+    tty: true
+
+  stylegan-4-5:
+    extends:
+      service: stylegan-0-1
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "4,5"  # Restrict
+    #command: python run_exp_1.py  # Run a different script for this container
+    tty: true
+
+  stylegan-6:
+    extends:
+      service: stylegan-0-1
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "6"  # Restrict
+    #command: python run_exp_1.py  # Run a different script for this container
+    tty: true
+  
+  stylegan-7:
+    extends:
+      service: stylegan-0-1
+    environment:
+      NVIDIA_VISIBLE_DEVICES: "7"  # Restrict
+    #command: python run_exp_1.py  # Run a different script for this container
+    tty: true
