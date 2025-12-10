@@ -1,5 +1,5 @@
 services:
-  stylegan-0-1:
+  stylegan-0-1-2-3:
     ipc: host
     ulimits:
         memlock: -1
@@ -13,7 +13,7 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     runtime: nvidia
     environment:
-      NVIDIA_VISIBLE_DEVICES: "0,1"
+      NVIDIA_VISIBLE_DEVICES: "0,1,2,3"
       NVIDIA_DRIVER_CAPABILITIES: "all"
     volumes:
       - ../datasets:/data
@@ -28,33 +28,17 @@ services:
 # --cfg=stylegan3-t or --cfg=stylegan3-r for translation or rotation+translation equivariant models
 # mirror=1 for horizontal flips
 
-  stylegan-2-3:
+  stylegan-4-5-6-7:
     extends:
-      service: stylegan-0-1
+      service: stylegan-0-1-2-3
     environment:
-      NVIDIA_VISIBLE_DEVICES: "2,3"  # Restrict
+      NVIDIA_VISIBLE_DEVICES: "4,5,6,7"  # Restrict
     #command: python run_exp_1.py  # Run a different script for this container
     tty: true
 
-  stylegan-4-5:
-    extends:
-      service: stylegan-0-1
-    environment:
-      NVIDIA_VISIBLE_DEVICES: "4,5"  # Restrict
-    #command: python run_exp_1.py  # Run a different script for this container
-    tty: true
-
-  stylegan-6:
-    extends:
-      service: stylegan-0-1
-    environment:
-      NVIDIA_VISIBLE_DEVICES: "6"  # Restrict
-    #command: python run_exp_1.py  # Run a different script for this container
-    tty: true
-  
   stylegan-7:
     extends:
-      service: stylegan-0-1
+      service: stylegan-0-1-2-3
     environment:
       NVIDIA_VISIBLE_DEVICES: "7"  # Restrict
     #command: python run_exp_1.py  # Run a different script for this container
