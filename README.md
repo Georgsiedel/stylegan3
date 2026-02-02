@@ -1,4 +1,4 @@
-## Changelog of this Fork
+## Purpose of fork
 
 - seamless resuming from checkpoints kimg number upon calling a checkpoint with --resume in train.py
 - larger scale conditional generation in gen_images.py, saving in ImageFolder layout
