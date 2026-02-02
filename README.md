@@ -2,6 +2,7 @@
 
 - seamless resuming from checkpoints kimg number upon calling a checkpoint with --resume in train.py
 - larger scale conditional generation in gen_images.py, saving in ImageFolder layout
+- balanced sampling according to number of images per class in original repo
 - Newer Docker and custom UID for Docker
 
 ## Alias-Free Generative Adversarial Networks (StyleGAN3)<br><sub>Official PyTorch implementation of the NeurIPS 2021 paper</sub>
